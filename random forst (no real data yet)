@@ -39,3 +39,13 @@ def simulate_race_data(
     jockey_skills: Dict[str, float],
     trainer_skills: Dict[str, float]
 ) -> pd.DataFrame:
+
+
+    all_race_entries = []
+    print(f"Simulating {num_races} races...")
+
+    for i in range(num_races):
+        race_id = f'RACE_{i:04d}'
+        race_distance = np.random.choice([1000, 1200, 1400, 1600, 1800, 2000, 2400]) # meters
+        race_class = np.random.choice(['Maiden', 'Claiming', 'Allowance', 'Grade 3', 'Grade 2', 'Grade 1'])
+        going = np.random.choice(['Fast', 'Good', 'Soft', 'Heavy']) # Track condition
