@@ -21,3 +21,8 @@ HORSES_PER_RACE = 10
 UNIQUE_HORSES = 2000
 UNIQUE_JOCKEYS = 200
 UNIQUE_TRAINERS = 150
+
+
+def simulate_entity_attributes(
+    num_horses: int, num_jockeys: int, num_trainers: int
+) -> Tuple[Dict[str, float], Dict[str, float], Dict[str, float]]:
