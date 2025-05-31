@@ -16,3 +16,8 @@ pd.set_option('display.max_columns', None)
 SEED = 42
 np.random.seed(SEED)
 
+NUM_RACES = 500
+HORSES_PER_RACE = 10
+UNIQUE_HORSES = 2000
+UNIQUE_JOCKEYS = 200
+UNIQUE_TRAINERS = 150
