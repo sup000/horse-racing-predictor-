@@ -26,3 +26,16 @@ UNIQUE_TRAINERS = 150
 def simulate_entity_attributes(
     num_horses: int, num_jockeys: int, num_trainers: int
 ) -> Tuple[Dict[str, float], Dict[str, float], Dict[str, float]]:
+    
+    horse_base_speeds = {f'H_{h}': np.random.uniform(80, 120) for h in range(num_horses)}
+    jockey_skills = {f'J_{j}': np.random.uniform(0.05, 0.25) for j in range(num_jockeys)} # Base win percentage
+    trainer_skills = {f'T_{t}': np.random.uniform(0.08, 0.30) for t in range(num_trainers)} # Base win percentage
+    return horse_base_speeds, jockey_skills, trainer_skills
+
+def simulate_race_data(
+    num_races: int,
+    horses_per_race: int,
+    horse_base_speeds: Dict[str, float],
+    jockey_skills: Dict[str, float],
+    trainer_skills: Dict[str, float]
+) -> pd.DataFrame:
