@@ -49,3 +49,11 @@ def simulate_race_data(
         race_distance = np.random.choice([1000, 1200, 1400, 1600, 1800, 2000, 2400]) # meters
         race_class = np.random.choice(['Maiden', 'Claiming', 'Allowance', 'Grade 3', 'Grade 2', 'Grade 1'])
         going = np.random.choice(['Fast', 'Good', 'Soft', 'Heavy']) # Track condition
+
+        potential_winners_in_race = []
+        for _ in range(horses_per_race):
+            horse_id = f'H_{np.random.randint(0, len(horse_base_speeds))}'
+            jockey_id = f'J_{np.random.randint(0, len(jockey_skills))}'
+            trainer_id = f'T_{np.random.randint(0, len(trainer_skills))}'
+
+
