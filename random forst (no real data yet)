@@ -60,19 +60,19 @@ def simulate_race_data(
             weight_carried = np.random.uniform(50, 65) 
             days_since_last_run = np.random.randint(10, 120) 
             
-            # Simulate previous speed figure with some variance from base
+            
             prev_speed_figure = horse_base_speeds[horse_id] + np.random.uniform(-5, 5)
 
-            # Simulate observed win percentages with some variance from base skill
+            
             jockey_win_perc = np.clip(jockey_skills[jockey_id] + np.random.uniform(-0.02, 0.02), 0, 1)
             trainer_win_perc = np.clip(trainer_skills[trainer_id] + np.random.uniform(-0.03, 0.03), 0, 1)
 
 
             # - np.random.normal(0, 5): Random race-day noise.
             true_performance_score = (
-                prev_speed_figure * 0.4  # Weight for speed
-                + (1 - (weight_carried / 65)) * 15  # Impact of weight (higher factor for more impact)
-                + (1 - (days_since_last_run / 120)) * 10 # Impact of rest (higher factor)
+                prev_speed_figure * 0.4  
+                + (1 - (weight_carried / 65)) * 15  
+                + (1 - (days_since_last_run / 120)) * 10 
                 + (jockey_win_perc * 100) * 0.25 # Weight for jockey skill
                 + (trainer_win_perc * 100) * 0.25 # Weight for trainer skill
                 + np.random.normal(0, 7) # Increased random noise for more variability
