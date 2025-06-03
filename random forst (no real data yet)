@@ -46,9 +46,9 @@ def simulate_race_data(
 
     for i in range(num_races):
         race_id = f'RACE_{i:04d}'
-        race_distance = np.random.choice([1000, 1200, 1400, 1600, 1800, 2000, 2400]) # meters
+        race_distance = np.random.choice([1000, 1200, 1400, 1600, 1800, 2000, 2400]) 
         race_class = np.random.choice(['Maiden', 'Claiming', 'Allowance', 'Grade 3', 'Grade 2', 'Grade 1'])
-        going = np.random.choice(['Fast', 'Good', 'Soft', 'Heavy']) # Track condition
+        going = np.random.choice(['Fast', 'Good', 'Soft', 'Heavy']) 
 
         potential_winners_in_race = []
         for _ in range(horses_per_race):
@@ -56,4 +56,36 @@ def simulate_race_data(
             jockey_id = f'J_{np.random.randint(0, len(jockey_skills))}'
             trainer_id = f'T_{np.random.randint(0, len(trainer_skills))}'
 
+            horse_age = np.random.randint(3, 8) 
+            weight_carried = np.random.uniform(50, 65) 
+            days_since_last_run = np.random.randint(10, 120) 
+            
+            # Simulate previous speed figure with some variance from base
+            prev_speed_figure = horse_base_speeds[horse_id] + np.random.uniform(-5, 5)
 
+            # Simulate observed win percentages with some variance from base skill
+            jockey_win_perc = np.clip(jockey_skills[jockey_id] + np.random.uniform(-0.02, 0.02), 0, 1)
+            trainer_win_perc = np.clip(trainer_skills[trainer_id] + np.random.uniform(-0.03, 0.03), 0, 1)
+
+
+            # - np.random.normal(0, 5): Random race-day noise.
+            true_performance_score = (
+                prev_speed_figure * 0.4  # Weight for speed
+                + (1 - (weight_carried / 65)) * 15  # Impact of weight (higher factor for more impact)
+                + (1 - (days_since_last_run / 120)) * 10 # Impact of rest (higher factor)
+                + (jockey_win_perc * 100) * 0.25 # Weight for jockey skill
+                + (trainer_win_perc * 100) * 0.25 # Weight for trainer skill
+                + np.random.normal(0, 7) # Increased random noise for more variability
+            )
+            
+            potential_winners_in_race.append({
+                'horse_id': horse_id, 'performance_score': true_performance_score,
+                'jockey_id': jockey_id, 'trainer_id': trainer_id,
+                'horse_age': horse_age, 'weight_carried': weight_carried,
+                'days_since_last_run': days_since_last_run,
+                'prev_speed_figure': prev_speed_figure,
+                'jockey_win_perc': jockey_win_perc,
+                'trainer_win_perc': trainer_win_perc,
+                'race_id': race_id, 'race_distance': race_distance,
+                'race_class': race_class, 'going': going
+            })
