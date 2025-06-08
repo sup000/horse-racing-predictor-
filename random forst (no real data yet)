@@ -89,3 +89,4 @@ def simulate_race_data(
                 'race_id': race_id, 'race_distance': race_distance,
                 'race_class': race_class, 'going': going
             })
+  
